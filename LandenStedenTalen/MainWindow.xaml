@@ -1,0 +1,39 @@
+﻿<Window x:Class="LandenStedenTalen.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        Title="MainWindow" Height="350" Width="525">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="5"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="350"></ColumnDefinition>
+            <ColumnDefinition Width="175"></ColumnDefinition>
+        </Grid.ColumnDefinitions>
+        <ListBox Name="LbLanden" DisplayMemberPath="Naam" Grid.Row="0" Grid.Column="0" SelectionChanged="LbLanden_SelectionChanged"></ListBox>
+        <GridSplitter Grid.Row="1" Grid.Column="0" HorizontalAlignment="Stretch"></GridSplitter>
+        <Grid Grid.Row="2" Grid.Column="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="5"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="25"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+                           
+            <Label Name="labelSteden" Grid.Row="0" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="Aquamarine">STEDEN</Label>
+           
+            <ListBox Grid.Row="1" Name="lbSteden" DisplayMemberPath="Naam" Grid.Column="0"></ListBox>
+            <GridSplitter  Grid.Column="1" HorizontalAlignment="Stretch"></GridSplitter>
+            
+            <Label Name="labelTalen" Grid.Row="0" Grid.Column="2" Height="25" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="Aquamarine" >TALEN</Label>
+            <ListBox Name="lbTalen" DisplayMemberPath="Naam" Grid.Row="2" Grid.Column="2"></ListBox>
+        </Grid>
+        <TextBox Name="tbIngaveStad" Width="100" Grid.Column="1" Height="25"></TextBox>
+        <Button Name="btSave" Width="50" Grid.Column="1" Height="25" Content="Opslaan" Grid.Row="2" Click="btSave_Click"></Button>
+    </Grid>
+</Window>

@@ -1,0 +1,214 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+      <Schema Namespace="LandenStedenTalenModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Landen">
+          <Key>
+            <PropertyRef Name="LandCode" />
+          </Key>
+          <Property Name="LandCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <EntityType Name="LandenTalen">
+          <Key>
+            <PropertyRef Name="LandCode" />
+            <PropertyRef Name="TaalCode" />
+          </Key>
+          <Property Name="LandCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="TaalCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Steden">
+          <Key>
+            <PropertyRef Name="StadNr" />
+          </Key>
+          <Property Name="StadNr" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar" MaxLength="50" Nullable="false" />
+          <Property Name="LandCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Talen">
+          <Key>
+            <PropertyRef Name="TaalCode" />
+          </Key>
+          <Property Name="TaalCode" Type="nvarchar" MaxLength="3" Nullable="false" />
+          <Property Name="Naam" Type="nvarchar" MaxLength="50" Nullable="false" />
+        </EntityType>
+        <Association Name="FK__LandenTal__LandC__173876EA">
+          <End Role="Landen" Type="Self.Landen" Multiplicity="1" />
+          <End Role="LandenTalen" Type="Self.LandenTalen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Landen">
+              <PropertyRef Name="LandCode" />
+            </Principal>
+            <Dependent Role="LandenTalen">
+              <PropertyRef Name="LandCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__LandenTal__TaalC__182C9B23">
+          <End Role="Talen" Type="Self.Talen" Multiplicity="1" />
+          <End Role="LandenTalen" Type="Self.LandenTalen" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Talen">
+              <PropertyRef Name="TaalCode" />
+            </Principal>
+            <Dependent Role="LandenTalen">
+              <PropertyRef Name="TaalCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK__Steden__LandCode__1273C1CD">
+          <End Role="Landen" Type="Self.Landen" Multiplicity="1" />
+          <End Role="Steden" Type="Self.Steden" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Landen">
+              <PropertyRef Name="LandCode" />
+            </Principal>
+            <Dependent Role="Steden">
+              <PropertyRef Name="LandCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="LandenStedenTalenModelStoreContainer">
+          <EntitySet Name="Landen" EntityType="Self.Landen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="LandenTalen" EntityType="Self.LandenTalen" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Steden" EntityType="Self.Steden" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Talen" EntityType="Self.Talen" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK__LandenTal__LandC__173876EA" Association="Self.FK__LandenTal__LandC__173876EA">
+            <End Role="Landen" EntitySet="Landen" />
+            <End Role="LandenTalen" EntitySet="LandenTalen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__LandenTal__TaalC__182C9B23" Association="Self.FK__LandenTal__TaalC__182C9B23">
+            <End Role="Talen" EntitySet="Talen" />
+            <End Role="LandenTalen" EntitySet="LandenTalen" />
+          </AssociationSet>
+          <AssociationSet Name="FK__Steden__LandCode__1273C1CD" Association="Self.FK__Steden__LandCode__1273C1CD">
+            <End Role="Landen" EntitySet="Landen" />
+            <End Role="Steden" EntitySet="Steden" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="LandenStedenTalenModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Land">
+          <Key>
+            <PropertyRef Name="LandCode" />
+          </Key>
+          <Property Name="LandCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Steden" Relationship="Self.FK__Steden__LandCode__1273C1CD" FromRole="Landen" ToRole="Steden" />
+          <NavigationProperty Name="Talen" Relationship="Self.LandenTalen" FromRole="Landen" ToRole="Talen" />
+        </EntityType>
+        <EntityType Name="Stad">
+          <Key>
+            <PropertyRef Name="StadNr" />
+          </Key>
+          <Property Name="StadNr" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="LandCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Landen" Relationship="Self.FK__Steden__LandCode__1273C1CD" FromRole="Steden" ToRole="Landen" />
+        </EntityType>
+        <EntityType Name="Taal">
+          <Key>
+            <PropertyRef Name="TaalCode" />
+          </Key>
+          <Property Name="TaalCode" Type="String" MaxLength="3" FixedLength="false" Unicode="true" Nullable="false" />
+          <Property Name="Naam" Type="String" MaxLength="50" FixedLength="false" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Landen" Relationship="Self.LandenTalen" FromRole="Talen" ToRole="Landen" />
+        </EntityType>
+        <Association Name="FK__Steden__LandCode__1273C1CD">
+          <End Role="Landen" Type="LandenStedenTalenModel.Land" Multiplicity="1" />
+          <End Role="Steden" Type="LandenStedenTalenModel.Stad" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Landen">
+              <PropertyRef Name="LandCode" />
+            </Principal>
+            <Dependent Role="Steden">
+              <PropertyRef Name="LandCode" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="LandenTalen">
+          <End Role="Landen" Type="LandenStedenTalenModel.Land" Multiplicity="*" />
+          <End Role="Talen" Type="LandenStedenTalenModel.Taal" Multiplicity="*" />
+        </Association>
+        <EntityContainer Name="LandenStedenTalenEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Landen" EntityType="LandenStedenTalenModel.Land" />
+          <EntitySet Name="Steden" EntityType="LandenStedenTalenModel.Stad" />
+          <EntitySet Name="Talen" EntityType="LandenStedenTalenModel.Taal" />
+          <AssociationSet Name="FK__Steden__LandCode__1273C1CD" Association="Self.FK__Steden__LandCode__1273C1CD">
+            <End Role="Landen" EntitySet="Landen" />
+            <End Role="Steden" EntitySet="Steden" />
+          </AssociationSet>
+          <AssociationSet Name="LandenTalen" Association="Self.LandenTalen">
+            <End Role="Landen" EntitySet="Landen" />
+            <End Role="Talen" EntitySet="Talen" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="LandenStedenTalenModelStoreContainer" CdmEntityContainer="LandenStedenTalenEntities">
+          <EntitySetMapping Name="Landen">
+            <EntityTypeMapping TypeName="LandenStedenTalenModel.Land">
+              <MappingFragment StoreEntitySet="Landen">
+                <ScalarProperty Name="LandCode" ColumnName="LandCode" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Steden">
+            <EntityTypeMapping TypeName="LandenStedenTalenModel.Stad">
+              <MappingFragment StoreEntitySet="Steden">
+                <ScalarProperty Name="StadNr" ColumnName="StadNr" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+                <ScalarProperty Name="LandCode" ColumnName="LandCode" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Talen">
+            <EntityTypeMapping TypeName="LandenStedenTalenModel.Taal">
+              <MappingFragment StoreEntitySet="Talen">
+                <ScalarProperty Name="TaalCode" ColumnName="TaalCode" />
+                <ScalarProperty Name="Naam" ColumnName="Naam" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <AssociationSetMapping Name="LandenTalen" TypeName="LandenStedenTalenModel.LandenTalen" StoreEntitySet="LandenTalen">
+            <EndProperty Name="Landen">
+              <ScalarProperty Name="LandCode" ColumnName="LandCode" />
+            </EndProperty>
+            <EndProperty Name="Talen">
+              <ScalarProperty Name="TaalCode" ColumnName="TaalCode" />
+            </EndProperty>
+          </AssociationSetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="None" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
