@@ -7,6 +7,7 @@
             <RowDefinition Height="*"/>
             <RowDefinition Height="5"/>
             <RowDefinition Height="*"/>
+            <RowDefinition Height="25"/>
         </Grid.RowDefinitions>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="350"></ColumnDefinition>
@@ -27,13 +28,26 @@
                            
             <Label Name="labelSteden" Grid.Row="0" Grid.Column="0" Height="25" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="Aquamarine">STEDEN</Label>
            
-            <ListBox Grid.Row="1" Name="lbSteden" DisplayMemberPath="Naam" Grid.Column="0"></ListBox>
+            <ListBox Grid.Row="1" Name="lbSteden" DisplayMemberPath="Naam" Grid.Column="0">
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Focusable" Value="False"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
             <GridSplitter  Grid.Column="1" HorizontalAlignment="Stretch"></GridSplitter>
             
             <Label Name="labelTalen" Grid.Row="0" Grid.Column="2" Height="25" HorizontalAlignment="Stretch" HorizontalContentAlignment="Center" Background="Aquamarine" >TALEN</Label>
-            <ListBox Name="lbTalen" DisplayMemberPath="Naam" Grid.Row="2" Grid.Column="2"></ListBox>
+            <ListBox Name="lbTalen" DisplayMemberPath="Naam" Grid.Row="2" Grid.Column="25" >
+                <ListBox.ItemContainerStyle>
+                    <Style TargetType="{x:Type ListBoxItem}">
+                        <Setter Property="Focusable" Value="False"></Setter>
+                    </Style>
+                </ListBox.ItemContainerStyle>
+            </ListBox>
         </Grid>
-        <TextBox Name="tbIngaveStad" Width="100" Grid.Column="1" Height="25"></TextBox>
-        <Button Name="btSave" Width="50" Grid.Column="1" Height="25" Content="Opslaan" Grid.Row="2" Click="btSave_Click"></Button>
+        <TextBox Name="tbIngaveStad" Width="100" Grid.Column="1" Height="25" GotFocus="tbIngaveStad_GotFocus" VerticalContentAlignment="Center"></TextBox>
+        <Button Name="btSave" Width="50" Grid.Column="1" Height="25" Content="Opslaan" Grid.Row="2" Click="btSave_Click" VerticalAlignment="Top"></Button>
+        <Label Name="labelStatus" Grid.Row="3"  Grid.ColumnSpan="2" Background="LightGray" HorizontalContentAlignment="Center" VerticalContentAlignment="Center" FontSize="10" Height="25"></Label>
     </Grid>
 </Window>

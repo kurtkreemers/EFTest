@@ -33,6 +33,7 @@ namespace LandenStedenTalen
                 land = (Land)LbLanden.SelectedItem;
                 VulSteden();
                 VulTalen();
+                labelStatus.Content = String.Empty;
             }
         }
         private void VulLanden()
@@ -79,12 +80,12 @@ namespace LandenStedenTalen
         {
             try
             {
-                if (tbIngaveStad.Text != "")
+                if (!String.IsNullOrWhiteSpace(tbIngaveStad.Text))
                 {
                     if (LbLanden.SelectedItem != null)
                     {
-                       
-                        var stad = new Stad { Naam = (ToUpperFirst(tbIngaveStad.Text)).ToString(), LandCode = land.LandCode};
+
+                        var stad = new Stad { Naam = (ToUpperFirst(tbIngaveStad.Text)).ToString(), LandCode = land.LandCode };
                         var selectedLand = (Land)LbLanden.SelectedItem;
                         using (var entities = new LandenStedenTalenEntities())
                         {
@@ -93,11 +94,13 @@ namespace LandenStedenTalen
                             {
                                 entities.Steden.Add(stad);
                                 entities.SaveChanges();
+                                labelStatus.Content = stad.Naam + " met succes aan " + selectedLand.Naam + " toegevoegd";
+                                tbIngaveStad.Clear();
                             }
                             else
                             {
                                 tbIngaveStad.Clear();
-                                throw new ArgumentException("De stad "+ stad.Naam +" is al aanwezig in de stedenlijst van " + selectedLand.Naam + " !!!");
+                                throw new ArgumentException("De stad " + stad.Naam + " is al aanwezig in de stedenlijst van " + selectedLand.Naam + " !!!");
                             }
                         }
                         VulSteden();
@@ -106,7 +109,10 @@ namespace LandenStedenTalen
                         throw new ArgumentException("Er is geen land geselecteerd!!!");
                 }
                 else
+                {
+                    tbIngaveStad.Clear();
                     throw new ArgumentException("De textbox is leeg!!!");
+                }
             }
             catch (Exception ex)
             {
@@ -117,6 +123,11 @@ namespace LandenStedenTalen
         private string ToUpperFirst(string s)
         {
             return char.ToUpper(s[0]) + s.Substring(1).ToLower();
+        }
+
+        private void tbIngaveStad_GotFocus(object sender, RoutedEventArgs e)
+        {
+            labelStatus.Content = String.Empty;
         }
     }
 }
